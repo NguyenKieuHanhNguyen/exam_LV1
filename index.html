@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luyện Thi Tiếng Trung HSK Sơ Cấp (71 Câu Chuẩn Hình Ảnh)</title>
+  <style>
+    :root {
+      --primary: #1976d2;
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --border: #dcdfe6;
+      --text: #2c3e50;
+      --success: #2e7d32;
+      --danger: #d32f2f;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; }
+
+    header { background: #fff; border-bottom: 2px solid var(--border); padding: 10px 24px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+    .logo-area { display: flex; align-items: center; gap: 12px; }
+    .logo { width: 36px; height: 36px; background: #e91e63; color: #fff; font-weight: bold; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .exam-title h3 { font-size: 16px; font-weight: 700; color: #333; }
+    .stats { display: flex; gap: 8px; font-size: 12px; margin-top: 3px; }
+    .tag { padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+    .tag-blue { background: #e3f2fd; color: #1976d2; }
+    .tag-green { background: #e8f5e9; color: #2e7d32; }
+
+    .tabs-bar { display: flex; gap: 10px; background: #fff; padding: 8px 24px; border-bottom: 1px solid var(--border); }
+    .tab-btn { padding: 8px 22px; border: 1px solid var(--border); background: #f8f9fa; cursor: pointer; border-radius: 4px; font-weight: 600; font-size: 14px; }
+    .tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .container { max-width: 960px; margin: 18px auto; padding: 0 15px; }
+    .section-view { display: none; }
+    .section-view.active { display: block; }
+
+    .group-card { background: var(--card); border-radius: 8px; border: 1px solid var(--border); padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .group-header { font-size: 15px; font-weight: bold; color: #1565c0; border-bottom: 1px solid #edf2f7; padding-bottom: 8px; margin-bottom: 15px; }
+    
+    .q-item { padding: 14px 0; border-bottom: 1px dashed #eaecef; }
+    .q-item:last-child { border-bottom: none; }
+    .q-num { font-weight: bold; color: #1565c0; margin-right: 6px; font-size: 16px; }
+    .pinyin { color: #64748b; font-size: 13px; margin: 3px 0; }
+    .chinese { font-size: 17px; font-weight: 500; margin-bottom: 6px; }
+
+    .btn-audio { background: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; border-radius: 16px; padding: 4px 12px; cursor: pointer; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+    .btn-audio:hover { background: #bbdefb; }
+
+    .choice-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+    .choice-item { display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border); transition: all 0.2s; }
+    .choice-item:hover { background: #f8fafc; }
+
+    select, input[type="text"], textarea { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; width: 100%; max-width: 480px; margin-top: 6px; outline: none; }
+    select:focus, input[type="text"]:focus, textarea:focus { border-color: var(--primary); }
+
+    .feedback-msg { margin-top: 8px; font-size: 14px; font-weight: 600; display: none; align-items: center; gap: 6px; }
+    .feedback-msg.correct { display: inline-flex; color: var(--success); }
+    .feedback-msg.incorrect { display: inline-flex; color: var(--danger); }
+
+    .footer-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--border); padding: 8px 16px; display: flex; align-items: center; overflow-x: auto; gap: 4px; box-shadow: 0 -2px 8px rgba(0,0,0,0.05); }
+    .nav-dot { min-width: 28px; height: 28px; border-radius: 4px; border: 1px solid #cbd5e1; background: #f8fafc; font-size: 11px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #475569; }
+    .nav-dot.done-correct { background: #c8e6c9; border-color: #4caf50; color: #2e7d32; font-weight: bold; }
+    .nav-dot.done-wrong { background: #ffcdd2; border-color: #f44336; color: #c62828; font-weight: bold; }
+
+    .bank-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; margin-bottom: 14px; font-size: 14px; line-height: 1.6; }
+
+    /* Gallery lưới hình ảnh trực quan */
+    .image-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
+    .gallery-card { background: #fff; border: 2px solid #e2e8f0; border-radius: 8px; padding: 10px; text-align: center; }
+    .gallery-card.featured { border-color: #1976d2; background: #f0f7ff; }
+    .gallery-card h4 { font-size: 15px; margin-bottom: 8px; color: #1976d2; font-weight: 700; }
+    .gallery-card svg { width: 100%; height: 140px; border-radius: 4px; background: #fafafa; }
+    .gallery-caption { font-size: 12px; color: #555; margin-top: 6px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-area">
+      <div class="logo">e</div>
+      <div class="exam-title">
+        <h3>HSK207 (ĐỀ THI LV1) - BẢN FIX TOÀN DIỆN HÌNH ẢNH</h3>
+        <div class="stats">
+          <span class="tag tag-blue">Tổng: 71 câu</span>
+          <span class="tag tag-green" id="scoreIndicator">Điểm đúng: 0 / 71</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="tabs-bar">
+    <button class="tab-btn active" onclick="switchSection('sec-lis')">PHẦN NGHE (1-30)</button>
+    <button class="tab-btn" onclick="switchSection('sec-read')">PHẦN ĐỌC (31-60)</button>
+    <button class="tab-btn" onclick="switchSection('sec-write')">PHẦN VIẾT (61-71)</button>
+  </div>
+
+  <div class="container">
+
+    <!-- ==================== PHẦN NGHE ==================== -->
+    <div id="sec-lis" class="section-view active">
+      <div class="group-card">
+        <div class="group-header">PHẦN 1: NGHE VÀ CHỌN ĐÚNG (√) HOẶC SAI (X) [CÂU 1 - 10]</div>
+        <div id="container-lis-1"></div>
+      </div>
+
+      <div class="group-card">
+        <div class="group-header">PHẦN 2: NGHE VÀ NỐI VỚI HÌNH ẢNH (A - F) [CÂU 11 - 20]</div>
+        <div class="bank-box">
+          <b>A:</b> 🏫 Trường học | <b>B:</b> 🚗 Taxi | <b>C:</b> 🌧️ Trời mưa | <b>D:</b> 👗 Váy mới | <b>E:</b> 🍎 Mua hoa quả | <b>F:</b> 🏀 Chơi bóng rổ
+        </div>
+        <div id="container-lis-2"></div>
+      </div>
+
+      <div class="group-card">
+        <div class="group-header">PHẦN 3: NGHE ĐOẠN HỘI THOẠI VÀ CHỌN ĐÁP ÁN (A, B, C) [CÂU 21 - 30]</div>
+        <div id="container-lis-3"></div>
+      </div>
+    </div>
+
+    <!-- ==================== PHẦN ĐỌC ==================== -->
+    <div id="sec-read" class="section-view">
+      
+      <!-- BỘ HÌNH ẢNH VẼ CHUẨN XÁC THEO ĐỀ GỐC -->
+      <div class="group-card">
+        <div class="group-header">HÌNH ẢNH ĐỀ BÀI (DÙNG CHO CÂU 31 - 40)</div>
+        <div class="image-gallery">
+          
+          <!-- HÌNH A: Mấy chiếc túi xách màu đen, trắng, vàng -->
+          <div class="gallery-card">
+            <h4>HÌNH A</h4>
+            <svg viewBox="0 0 200 140">
+              <rect width="200" height="140" fill="#f5ede3"/>
+              <!-- Túi đen -->
+              <rect x="25" y="35" width="70" height="45" rx="5" fill="#2b2b2b" stroke="#111" stroke-width="2"/>
+              <rect x="25" y="35" width="70" height="20" rx="3" fill="#3d3d3d"/>
+              <circle cx="60" cy="48" r="3" fill="#d4af37"/>
+              <path d="M40 35 Q60 10 80 35" fill="none" stroke="#666" stroke-width="2"/>
+              <!-- Túi trắng/kem -->
+              <rect x="105" y="45" width="75" height="50" rx="5" fill="#fdfbf7" stroke="#dcd6cd" stroke-width="2"/>
+              <rect x="105" y="45" width="75" height="22" rx="3" fill="#f2ede4"/>
+              <circle cx="142" cy="60" r="3" fill="#d4af37"/>
+              <path d="M115 45 Q140 15 165 45" fill="none" stroke="#d4af37" stroke-width="1.5"/>
+              <!-- Túi vàng phía sau -->
+              <rect x="75" y="15" width="60" height="35" rx="4" fill="#e6b422" opacity="0.85"/>
+            </svg>
+            <div class="gallery-caption">Túi xách màu đen, màu trắng (黑色的 / 白色的包)</div>
+          </div>
+
+          <!-- HÌNH B: Hai người ngồi họp, có máy vi tính, bảng biểu -->
+          <div class="gallery-card">
+            <h4>HÌNH B</h4>
+            <svg viewBox="0 0 200 140">
+              <rect width="200" height="140" fill="#f8fafc"/>
+              <!-- Bàn học/văn phòng -->
+              <rect x="30" y="85" width="140" height="8" rx="2" fill="#334155"/>
+              <rect x="95" y="93" width="10" height="35" fill="#475569"/>
+              <!-- Máy vi tính laptop -->
+              <polygon points="90,85 110,85 114,70 86,70" fill="#64748b"/>
+              <rect x="88" y="70" width="24" height="15" rx="1" fill="#94a3b8"/>
+              <!-- Người ngồi ghế bên trái -->
+              <circle cx="55" cy="50" r="9" fill="#f59e0b"/>
+              <path d="M45 85 L50 64 Q55 60 60 64 L65 85 Z" fill="#eab308"/>
+              <rect x="42" y="75" width="16" height="35" rx="3" fill="#1e293b"/>
+              <!-- Người đứng bên phải chỉ bảng -->
+              <circle cx="145" cy="45" r="9" fill="#f87171"/>
+              <path d="M138 56 L152 56 L150 90 L140 90 Z" fill="#ec4899"/>
+              <line x1="140" y1="90" x2="140" y2="125" stroke="#0f172a" stroke-width="5"/>
+              <line x1="148" y1="90" x2="148" y2="125" stroke="#0f172a" stroke-width="5"/>
+            </svg>
+            <div class="gallery-caption">Trong giờ học/văn phòng làm việc (上课 / 办公室)</div>
+          </div>
+
+          <!-- HÌNH C: Người ngồi uống trà nói chuyện -->
+          <div class="gallery-card">
+            <h4>HÌNH C</h4>
+            <svg viewBox="0 0 200 140">
+              <rect width="200" height="140" fill="#fefae0"/>
+              <!-- Bàn tròn cà phê -->
+              <ellipse cx="100" cy="95" rx="55" ry="14" fill="#d4a373"/>
+              <rect x="96" y="95" width="8" height="35" fill="#bc6c25"/>
+              <!-- Tách trà bốc khói -->
+              <rect x="92" y="80" width="16" height="12" rx="3" fill="#e9edc9"/>
+              <path d="M96 77 Q100 70 96 64" fill="none" stroke="#a3b18a" stroke-width="2"/>
+              <path d="M102 77 Q106 70 102 64" fill="none" stroke="#a3b18a" stroke-width="2"/>
+              <!-- Hai người ngồi nói chuyện -->
+              <circle cx="45" cy="65" r="10" fill="#ddbea9"/>
+              <path d="M35 100 Q45 80 55 100 Z" fill="#6b705c"/>
+              <circle cx="155" cy="65" r="10" fill="#ddbea9"/>
+              <path d="M145 100 Q155 80 165 100 Z" fill="#b7b7a4"/>
+            </svg>
+            <div class="gallery-caption">Uống trà nói chuyện trong phòng (喝茶 / 说话)</div>
+          </div>
+
+          <!-- HÌNH D: Quầy hàng / siêu thị tính tiền -->
+          <div class="gallery-card">
+            <h4>HÌNH D</h4>
+            <svg viewBox="0 0 200 140">
+              <rect width="200" height="140" fill="#e0f2fe"/>
+              <!-- Quầy tính tiền siêu thị -->
+              <rect x="25" y="70" width="150" height="45" rx="3" fill="#0284c7"/>
+              <rect x="35" y="55" width="28" height="15" rx="2" fill="#38bdf8"/>
+              <!-- Máy tính tiền Pos -->
+              <rect x="120" y="50" width="22" height="20" rx="2" fill="#0f172a"/>
+              <rect x="123" y="53" width="16" height="10" fill="#4ade80"/>
+              <!-- Túi mua sắm & hộp quà -->
+              <rect x="75" y="52" width="18" height="18" fill="#f43f5e"/>
+              <rect x="96" y="56" width="14" height="14" fill="#fbbf24"/>
+            </svg>
+            <div class="gallery-caption">Ở cửa hàng mua đồ tính tiền (在商店买东西，一百多块)</div>
+          </div>
+
+          <!-- HÌNH E: Người phụ nữ mặc váy xanh lam dài (chính là hình E trên app) -->
+          <div class="gallery-card">
+            <h4>HÌNH E</h4>
+            <svg viewBox="0 0 200 140">
+              <rect width="200" height="140" fill="#eff6ff"/>
+              <!-- Tóc vàng -->
+              <circle cx="100" cy="22" r="10" fill="#fde047"/>
+              <!-- Mặt và cổ -->
+              <circle cx="100" cy="24" r="7" fill="#fed7aa"/>
+              <rect x="98" y="29" width="4" height="6" fill="#fed7aa"/>
+              <!-- Đầm dài màu xanh lam (dạ hội / biểu diễn ca hát) -->
+              <path d="M93 35 L107 35 L116 80 L124 125 L76 125 L84 80 Z" fill="#2563eb"/>
+              <!-- Cánh tay giơ cao biểu diễn hát -->
+              <path d="M93 36 L80 20 L76 25" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+              <path d="M107 36 L120 20 L124 25" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <div class="gallery-caption">Váy xanh lam / Biểu diễn ca hát (穿蓝色裙子 / 唱歌)</div>
+          </div>
+
+          <!-- HÌNH F: Nam cầu thủ đang ném bóng rổ (chính là hình F ví dụ trên app) -->
+          <div class="gallery-card featured">
+            <h4>HÌNH F (Ví dụ mẫu: 打篮球)</h4>
+            <svg viewBox="0 0 200 140">
+              <rect width="200" height="140" fill="#f8fafc"/>
+              <ellipse cx="100" cy="80" rx="45" ry="50" fill="#e2e8f0" opacity="0.6"/>
+              <!-- Đầu cầu thủ -->
+              <circle cx="95" cy="30" r="9" fill="#d97706"/>
+              <!-- Cơ thể mặc áo tím sát nách -->
+              <path d="M85 40 L105 40 L110 75 L82 78 Z" fill="#4338ca"/>
+              <!-- Cánh tay ôm quả bóng rổ màu cam -->
+              <line x1="88" y1="48" x2="115" y2="60" stroke="#d97706" stroke-width="4" stroke-linecap="round"/>
+              <line x1="102" y1="48" x2="120" y2="62" stroke="#d97706" stroke-width="4" stroke-linecap="round"/>
+              <!-- Quả bóng rổ cam -->
+              <circle cx="126" cy="65" r="13" fill="#ea580c"/>
+              <circle cx="126" cy="65" r="13" fill="none" stroke="#9a3412" stroke-width="1"/>
+              <!-- Quần đùi & Chân giày thể thao -->
+              <path d="M82 78 L110 75 L108 95 L84 96 Z" fill="#312e81"/>
+              <line x1="90" y1="96" x2="98" y2="125" stroke="#1e293b" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <div class="gallery-caption"><strong>Ví dụ mẫu:</strong> 每个星期六，我都去打篮球。-- F</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="group-card">
+        <div class="group-header">PHẦN ĐỌC 1: TỪ CÂU 31-40 - GHÉP CÂU VỚI TRANH THÍCH HỢP (A - F)</div>
+        <div id="container-read-1"></div>
+      </div>
+
+      <div class="group-card">
+        <div class="group-header">PHẦN ĐỌC 2: TỪ CÂU 41-50 - CHỌN TỪ ĐÚNG VÀO CHỖ TRỐNG</div>
+        <div class="bank-box">
+          <b>A. 穿 (Chuān)</b>: Mặc &nbsp;|&nbsp; 
+          <b>B. 洗 (Xǐ)</b>: Rửa, giặt &nbsp;|&nbsp; 
+          <b>C. 告诉 (Gàosu)</b>: Nói cho biết &nbsp;|&nbsp; 
+          <b>D. 时间 (Shíjiān)</b>: Thời gian &nbsp;|&nbsp; 
+          <b>E. 后面 (Hòumiàn)</b>: Phía sau &nbsp;|&nbsp; 
+          <b>F. 贵 (Guì)</b>: Đắt
+        </div>
+        <div id="container-read-2"></div>
+      </div>
+
+      <div class="group-card">
+        <div class="group-header">PHẦN ĐỌC 3: TỪ CÂU 51-60 - NỐI CÂU VỚI ĐÁP ÁN ĐÚNG</div>
+        <div class="bank-box">
+          <b>A:</b> 两张一共八十块。(Hai vé tổng cộng 80 tệ)<br>
+          <b>B:</b> 我是去年开始学习的。(Tôi bắt đầu học từ năm ngoái)<br>
+          <b>C:</b> 可能是小王的女朋友。(Có thể là bạn gái Tiểu Vương)<br>
+          <b>D:</b> 没关系，我吃药了，好多了。(Không sao, tôi đã uống thuốc rồi)<br>
+          <b>E:</b> 一本红色的书在桌子上面。(Cuốn sách màu đỏ ở trên bàn)
+        </div>
+        <div id="container-read-3"></div>
+      </div>
+    </div>
+
+    <!-- ==================== PHẦN VIẾT ==================== -->
+    <div id="sec-write" class="section-view">
+      <div class="group-card">
+        <div class="group-header">PHẦN VIẾT 1: SẮP XẾP LẠI CÂU [CÂU 61 - 65]</div>
+        <div id="container-write-1"></div>
+      </div>
+
+      <div class="group-card">
+        <div class="group-header">PHẦN VIẾT 2: DỊCH CÂU TỪ VIỆT SANG TRUNG [CÂU 66 - 70]</div>
+        <div id="container-write-2"></div>
+      </div>
+
+      <div class="group-card">
+        <div class="group-header">PHẦN VIẾT 3: ĐOẠN VĂN TỰ LUẬN 80 CHỮ [CÂU 71]</div>
+        <div class="q-item" id="item-q71">
+          <span class="q-num">71.</span>
+          <p style="font-weight: 600; margin-bottom: 6px;">Đoạn văn tự luận 80 chữ: 主题说一说 《去美奈旅游》 (hoặc 《我的生日》)</p>
+          <textarea id="essayInput" placeholder="Nhập đoạn văn tiếng Trung của bạn tại đây..." oninput="checkEssay(this.value)"></textarea>
+          <div style="font-size: 12px; color: #666; margin-top: 4px;">Số chữ: <span id="wordCount">0</span> / 80 chữ.</div>
+          <div class="feedback-msg" id="fb-71"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-nav" id="footerPalette"></div>
+
+  <script>
+    // Dữ liệu chuẩn xác 100% cho toàn bộ 71 câu
+    const questionsDB = {
+      // Nghe 1-10
+      1: { type: 'tf', text: '飞机', prompt: '✈️ (Hình chiếc máy bay)', ans: 'T' },
+      2: { type: 'tf', text: '他在吃苹果', prompt: '🍵 (Hình đang ngồi uống trà)', ans: 'F' },
+      3: { type: 'tf', text: '外面下大雨了', prompt: '🌧️ (Hình trời mưa to)', ans: 'T' },
+      4: { type: 'tf', text: '他在看书', prompt: '⚽ (Hình đang đá bóng)', ans: 'F' },
+      5: { type: 'tf', text: '两只小猫', prompt: '🐱🐱 (Hai chú mèo con)', ans: 'T' },
+      6: { type: 'tf', text: '他们在喝咖啡', prompt: '☕ (Đang ngồi uống cà phê)', ans: 'T' },
+      7: { type: 'tf', text: '桌子上有一本书', prompt: '🍎 (Quả táo trên bàn)', ans: 'F' },
+      8: { type: 'tf', text: '出租车来了', prompt: '🚕 (Chiếc taxi)', ans: 'T' },
+      9: { type: 'tf', text: '天气很冷', prompt: '❄️ (Trời lạnh có tuyết)', ans: 'T' },
+      10: { type: 'tf', text: '他在睡觉', prompt: '🏃‍♂️ (Người đang chạy thể dục)', ans: 'F' },
+
+      // Nghe 11-20
+      11: { type: 'select', text: '我们坐出租车去火车站。', options: ['A','B','C','D','E','F'], ans: 'B' },
+      12: { type: 'select', text: '这件蓝色的裙子真好看。', options: ['A','B','C','D','E','F'], ans: 'D' },
+      13: { type: 'select', text: '他在学校学习汉语。', options: ['A','B','C','D','E','F'], ans: 'A' },
+      14: { type: 'select', text: '明天可能会下雨。', options: ['A','B','C','D','E','F'], ans: 'C' },
+      15: { type: 'select', text: '我想买两斤苹果。', options: ['A','B','C','D','E','F'], ans: 'E' },
+      16: { type: 'select', text: '星期六下午我们一起打篮球。', options: ['A','B','C','D','E','F'], ans: 'F' },
+      17: { type: 'select', text: '门口停着一辆出租车。', options: ['A','B','C','D','E','F'], ans: 'B' },
+      18: { type: 'select', text: '请问，这个学校大吗？', options: ['A','B','C','D','E','F'], ans: 'A' },
+      19: { type: 'select', text: '外面下雨了，别出去了。', options: ['A','B','C','D','E','F'], ans: 'C' },
+      20: { type: 'select', text: '这条漂亮的裙子是谁的？', options: ['A','B','C','D','E','F'], ans: 'D' },
+
+      // Nghe 21-30
+      21: { type: 'mc', text: '男：小王，这里有几个杯子，哪一个是你的？女：左边那个红色的是我的。问：小王的杯子是什么颜色的？', q: '小王的杯子是什么颜色的？', choices: ['A. 生病了 (Shēngbìng le)', 'B. 红色 (Hóngsè - Màu đỏ)', 'C. 不太高兴 (Bú tài gāoxìng)'], ans: 'B' },
+      22: { type: 'mc', text: '女：你认识小雨吗？男：我们以前是同学，是老朋友了。问：关于男的，可以知道什么？', q: '关于男的，可以知道什么？', choices: ['A. 男的不认识小雨', 'B. 他们是老朋友', 'C. 他们是新朋友'], ans: 'B' },
+      23: { type: 'mc', text: '男：明天星期日，你去哪儿？女：我想去商店买衣服。问：女的明天想做什么？', q: '女的明天想做什么？', choices: ['A. 买衣服', 'B. 去学校', 'C. 在家睡觉'], ans: 'A' },
+      24: { type: 'mc', text: '女：今天天气真好，我们去跑步吧。男：好啊，我也想去运动。问：他们打算做什么？', q: '他们打算做什么？', choices: ['A. 看电视', 'B. 吃火锅', 'C. 去跑步'], ans: 'C' },
+      25: { type: 'mc', text: '男：请问去医院怎么走？女：一直往前走，就在学校后面。问：医院在哪儿？', q: '医院在哪儿？', choices: ['A. 学校前面', 'B. 学校后面', 'C. 学校里面'], ans: 'B' },
+      26: { type: 'mc', text: '女：你喝茶还是喝水？男：给我一杯热水吧，谢谢。问：男的想喝什么？', q: '男的想喝什么？', choices: ['A. 热水', 'B. 绿茶', 'C. 咖啡'], ans: 'A' },
+      27: { type: 'mc', text: '男：这本汉语书多少钱？女：三十五块。问：这本书多少钱？', q: '这本书多少钱？', choices: ['A. 二十五块', 'B. 四十五块', 'C. 三十五块'], ans: 'C' },
+      28: { type: 'mc', text: '女：你怎么还不睡觉？男：我还有一个工作没做完。问：男的为什么不睡觉？', q: '男的为什么不睡觉？', choices: ['A. 在看电影', 'B. 在做工作', 'C. 身体不好'], ans: 'B' },
+      29: { type: 'mc', text: '男：你几点去机场？女：下午三点。问：女的几点去机场？', q: '女的几点去机场？', choices: ['A. 下午三点', 'B. 上午十点', 'C. 下午五点'], ans: 'A' },
+      30: { type: 'mc', text: '女：这个电脑怎么样？男：非常好，就是有点儿贵。问：男的觉得这个电脑怎么样？', q: '男的觉得这个电脑怎么样？', choices: ['A. 很便宜', 'B. 不太好', 'C. 有点儿贵'], ans: 'C' },
+
+      // Đọc 31-40: Ghép tranh A - F (Khớp chính xác với tranh SVG vẽ ở trên)
+      31: { type: 'select', pinyin: 'Mèimei xǐhuan chuān lánsè de qúnzi.', zh: '31. 妹妹喜欢穿蓝色的裙子。', options: ['A','B','C','D','E','F'], ans: 'E' },
+      32: { type: 'select', pinyin: 'Tāmen zài bàn\'gōngshì tán gongzuò.', zh: '32. 他们在办公室看电脑，谈工作。', options: ['A','B','C','D','E','F'], ans: 'B' },
+      33: { type: 'select', pinyin: 'Zhèige bāo tài guì le, wǒ xiǎng mǎi ge piányi de.', zh: '33. 这个包太贵了，我想买个便宜的。', options: ['A','B','C','D','E','F'], ans: 'A' },
+      34: { type: 'select', pinyin: 'Xiàwǔ wǒmen zài cháguǎn hē chá shuōhuà.', zh: '34. 下午我们在茶馆喝茶说话。', options: ['A','B','C','D','E','F'], ans: 'C' },
+      35: { type: 'select', pinyin: 'Wǒmen qù shāngdiàn mǎi dōngxi ba.', zh: '35. 我们去商店买东西吧。', options: ['A','B','C','D','E','F'], ans: 'D' },
+      36: { type: 'select', pinyin: 'Shàngkè de shíhou bù néng chī dōngxi.', zh: '36. 上课的时候不能吃东西。', options: ['A','B','C','D','E','F'], ans: 'B' },
+      37: { type: 'select', pinyin: 'Wǒmen dōu xǐhuan chànggē, gēge chàng de zuì hǎo.', zh: '37. 我们都喜欢唱歌，哥哥唱得最好。', options: ['A','B','C','D','E','F'], ans: 'E' },
+      38: { type: 'select', pinyin: 'Wǒ juéde hēisè de bǐ báisè de piàoliang.', zh: '38. 我觉得黑色的比白色的漂亮。', options: ['A','B','C','D','E','F'], ans: 'A' },
+      39: { type: 'select', pinyin: 'Zài shāngdiàn, mǎi de zhèxiē dōngxi, yígòng yìbǎi duō kuài qián.', zh: '39. 在商店，买的这些东西，一共一百多块钱。', options: ['A','B','C','D','E','F'], ans: 'D' },
+      40: { type: 'select', pinyin: 'Wǒ jìn jiàoshì de shíhou, tāmen zhèngzài shuōhuà.', zh: '40. 我进教室的时候，她们正在说话。', options: ['A','B','C','D','E','F'], ans: 'C' },
+
+      // Đọc 41-50
+      41: { type: 'input', pinyin: 'Děng děng, nǐ ( &nbsp;&nbsp;&nbsp;&nbsp; ) le shǒu zài lái chī fàn.', zh: '41. 等等，你 ( &nbsp;&nbsp;&nbsp;&nbsp; ) 了手再来吃饭。', ans: 'B' },
+      42: { type: 'input', pinyin: 'Xuéxiào ( &nbsp;&nbsp;&nbsp;&nbsp; ) yǒu yí gè shāngdiàn.', zh: '42. 学校 ( &nbsp;&nbsp;&nbsp;&nbsp; ) 有一个商店。', ans: 'E' },
+      43: { type: 'input', pinyin: 'Jīntiān tā ( &nbsp;&nbsp;&nbsp;&nbsp; ) le yì jiàn xīn yīfu.', zh: '43. 今天他 ( &nbsp;&nbsp;&nbsp;&nbsp; ) 了一件新衣服。', ans: 'A' },
+      44: { type: 'input', pinyin: 'Kàn diànnǎo ( &nbsp;&nbsp;&nbsp;&nbsp; ) tài cháng, duì yǎnjing bù hǎo.', zh: '44. 看电脑 ( &nbsp;&nbsp;&nbsp;&nbsp; ) 太长，对眼睛不好。', ans: 'D' },
+      45: { type: 'input', pinyin: 'Nǐ zěnme zhīdào tā huíguó le? Nán: Tā péngyou ( &nbsp;&nbsp;&nbsp;&nbsp; ) wǒ de.', zh: '45. 女：你怎么知道她回国了？ 男：他朋友 ( &nbsp;&nbsp;&nbsp;&nbsp; ) 我的。', ans: 'C' },
+      46: { type: 'input', pinyin: 'Zhè jiàn yīfu tài ( &nbsp;&nbsp;&nbsp;&nbsp; ) le, wǒ bù mǎi.', zh: '46. 这件衣服太 ( &nbsp;&nbsp;&nbsp;&nbsp; ) 了，我不买。', ans: 'F' },
+      47: { type: 'input', pinyin: 'Qǐng nǐ ( &nbsp;&nbsp;&nbsp;&nbsp; ) yí xià píngguǒ.', zh: '47. 请你 ( &nbsp;&nbsp;&nbsp;&nbsp; ) 一下苹果。', ans: 'B' },
+      48: { type: 'input', pinyin: 'Wàimiàn lěng, nǐ duō ( &nbsp;&nbsp;&nbsp;&nbsp; ) diǎnr yīfu.', zh: '48. 外面冷，你多 ( &nbsp;&nbsp;&nbsp;&nbsp; ) 点儿衣服。', ans: 'A' },
+      49: { type: 'input', pinyin: 'Tā méi ( &nbsp;&nbsp;&nbsp;&nbsp; ) wǒ tā de míngzi.', zh: '49. 他没 ( &nbsp;&nbsp;&nbsp;&nbsp; ) 我他的名字。', ans: 'C' },
+      50: { type: 'input', pinyin: 'Wǒ jīntiān méiyǒu ( &nbsp;&nbsp;&nbsp;&nbsp; ) qù kàn diànyǐng.', zh: '50. 我今天没有 ( &nbsp;&nbsp;&nbsp;&nbsp; ) 去看电影。', ans: 'D' },
+
+      // Đọc 51-60
+      51: { type: 'select', zh: '51. 我要两张明天晚上 8:30 的票，多少钱？', options: ['A','B','C','D','E'], ans: 'A' },
+      52: { type: 'select', zh: '52. 我是去年开始学习的。', options: ['A','B','C','D','E'], ans: 'B' },
+      53: { type: 'select', zh: '53. 可能是小王的女朋友。', options: ['A','B','C','D','E'], ans: 'C' },
+      54: { type: 'select', zh: '54. 你怎么了，身体不好吗？', options: ['A','B','C','D','E'], ans: 'D' },
+      55: { type: 'select', zh: '55. 你看到我的书了吗？一本红色的书。', options: ['A','B','C','D','E'], ans: 'E' },
+      56: { type: 'select', zh: '56. 请问电影票多少钱一张？', options: ['A','B','C','D','E'], ans: 'A' },
+      57: { type: 'select', zh: '57. 门外那个漂亮的女孩儿是谁？', options: ['A','B','C','D','E'], ans: 'C' },
+      58: { type: 'select', zh: '58. 你感冒好点儿了吗？', options: ['A','B','C','D','E'], ans: 'D' },
+      59: { type: 'select', zh: '59. 这本红色的书是你的吗？', options: ['A','B','C','D','E'], ans: 'E' },
+      60: { type: 'select', zh: '60. 你是什么时候来中国的？', options: ['A','B','C','D','E'], ans: 'B' },
+
+      // Viết 61-65
+      61: { type: 'text', prompt: '1. 今天 / 去 / 我 / 和妈妈 / 吃饭 / 饭店 。', accepted: ['今天我和妈妈去饭店吃饭。','今天我和妈妈去饭店吃饭','我和妈妈今天去饭店吃饭。','我和妈妈今天去饭店吃饭'] },
+      62: { type: 'text', prompt: '2. 他 / 是 / 汉语老师 / 我 / 的 。', accepted: ['他是我的汉语老师。','他是我的汉语老师'] },
+      63: { type: 'text', prompt: '3. 你 / 喝 / 喜欢 / 茶 / 喝 / 还是 / 咖啡 ？', accepted: ['你喜欢喝茶还是喝咖啡？','你喜欢喝茶还是喝咖啡','你喜欢喝咖啡还是喝茶？'] },
+      64: { type: 'text', prompt: '4. 便宜 / 苹果 / 西瓜 / 比 。', accepted: ['苹果比西瓜便宜。','苹果比西瓜便宜'] },
+      65: { type: 'text', prompt: '5. 想 / 新衣服 / 一件 / 买 / 我 。', accepted: ['我想买一件新衣服。','我想买一件新衣服'] },
+
+      // Viết 66-70
+      66: { type: 'text', prompt: '1. Hôm nay tôi và chị gái dọn phòng.', accepted: ['今天我和姐姐打扫房间。','今天我和姐姐打扫房间','今天我和姐姐收拾房间。','今天我和姐姐收拾房间'] },
+      67: { type: 'text', prompt: '2. Thời tiết hôm nay rất lạnh.', accepted: ['今天天气很冷。','今天天气很冷'] },
+      68: { type: 'text', prompt: '3. Tôi thích đi du lịch Trung Quốc.', accepted: ['我喜欢去中国旅游。','我喜欢去中国旅游'] },
+      69: { type: 'text', prompt: '4. Anh ấy đang mua đồ ở cửa hàng.', accepted: ['他在商店买东西。','他在商店买东西'] },
+      70: { type: 'text', prompt: '5. Trường học cách nhà rất gần.', accepted: ['学校离家很近。','学校离家很近','学校离我家很近。'] },
+
+      // Viết 71
+      71: { type: 'essay' }
+    };
+
+    let userScores = {};
+
+    function initPage() {
+      // 1-10
+      let h1 = '';
+      for (let i = 1; i <= 10; i++) {
+        const item = questionsDB[i];
+        h1 += `
+          <div class="q-item" id="item-q${i}">
+            <p><span class="q-num">${i}.</span> <button type="button" class="btn-audio" onclick="speak('${item.text}')">🔊 Nghe câu ${i}</button></p>
+            <div style="font-size: 16px; margin: 4px 0;">${item.prompt}</div>
+            <div class="choice-group">
+              <label class="choice-item"><input type="radio" name="ans_${i}" value="T" onchange="checkAnswer(${i}, '${item.ans}', 'T')"> Đúng (√)</label>
+              <label class="choice-item"><input type="radio" name="ans_${i}" value="F" onchange="checkAnswer(${i}, '${item.ans}', 'F')"> Sai (X)</label>
+            </div>
+            <div class="feedback-msg" id="fb-${i}"></div>
+          </div>`;
+      }
+      document.getElementById('container-lis-1').innerHTML = h1;
+
+      // 11-20
+      let h2 = '';
+      for (let i = 11; i <= 20; i++) {
+        const item = questionsDB[i];
+        h2 += `
+          <div class="q-item" id="item-q${i}">
+            <p><span class="q-num">${i}.</span> <button type="button" class="btn-audio" onclick="speak('${item.text}')">🔊 Nghe câu ${i}</button></p>
+            <select onchange="checkAnswer(${i}, '${item.ans}', this.value)">
+              <option value="">-- Chọn hình ảnh A - F --</option>
+              ${item.options.map(o => `<option value="${o}">${o}</option>`).join('')}
+            </select>
+            <div class="feedback-msg" id="fb-${i}"></div>
+          </div>`;
+      }
+      document.getElementById('container-lis-2').innerHTML = h2;
+
+      // 21-30
+      let h3 = '';
+      for (let i = 21; i <= 30; i++) {
+        const item = questionsDB[i];
+        h3 += `
+          <div class="q-item" id="item-q${i}">
+            <p><span class="q-num">${i}.</span> <button type="button" class="btn-audio" onclick="speak('${item.text}')">🔊 Nghe hội thoại</button></p>
+            <div class="chinese">${item.q}</div>
+            <div class="choice-group" style="flex-direction: column; gap: 8px;">
+              ${item.choices.map((c, idx) => {
+                const optVal = ['A','B','C'][idx];
+                return `<label class="choice-item"><input type="radio" name="ans_${i}" value="${optVal}" onchange="checkAnswer(${i}, '${item.ans}', '${optVal}')"> ${c}</label>`;
+              }).join('')}
+            </div>
+            <div class="feedback-msg" id="fb-${i}"></div>
+          </div>`;
+      }
+      document.getElementById('container-lis-3').innerHTML = h3;
+
+      // 31-40
+      let r1 = '';
+      for (let i = 31; i <= 40; i++) {
+        const item = questionsDB[i];
+        r1 += `
+          <div class="q-item" id="item-q${i}">
+            <span class="q-num">${i}.</span>
+            <p class="pinyin">${item.pinyin}</p>
+            <p class="chinese">${item.zh}</p>
+            <select onchange="checkAnswer(${i}, '${item.ans}', this.value)">
+              <option value="">-- Chọn hình ảnh A - F --</option>
+              ${item.options.map(o => `<option value="${o}">${o}</option>`).join('')}
+            </select>
+            <div class="feedback-msg" id="fb-${i}"></div>
+          </div>`;
+      }
+      document.getElementById('container-read-1').innerHTML = r1;
+
+      // 41-50
+      let r2 = '';
+      for (let i = 41; i <= 50; i++) {
+        const item = questionsDB[i];
+        r2 += `
+          <div class="q-item" id="item-q${i}">
+            <span class="q-num">${i}.</span>
+            <p class="pinyin">${item.pinyin}</p>
+            <p class="chinese">${item.zh}</p>
+            <input type="text" placeholder="Nhập chữ cái đáp án (A, B, C, D, E, F)..." onblur="checkAnswer(${i}, '${item.ans}', this.value)">
+            <div class="feedback-msg" id="fb-${i}"></div>
+          </div>`;
+      }
+      document.getElementById('container-read-2').innerHTML = r2;
+
+      // 51-60
+      let r3 = '';
+      for (let i = 51; i <= 60; i++) {
+        const item = questionsDB[i];
+        r3 += `
+          <div class="q-item" id="item-q${i}">
+            <span class="q-num">${i}.</span>
+            <p class="chinese">${item.zh}</p>
+            <select onchange="checkAnswer(${i}, '${item.ans}', this.value)">
+              <option value="">-- Chọn câu trả lời tương ứng (A, B, C, D, E) --</option>
+              ${item.options.map(o => `<option value="${o}">${o}</option>`).join('')}
+            </select>
+            <div class="feedback-msg" id="fb-${i}"></div>
+          </div>`;
+      }
+      document.getElementById('container-read-3').innerHTML = r3;
+
+      // 61-65
+      let w1 = '';
+      for (let i = 61; i <= 65; i++) {
+        const item = questionsDB[i];
+        w1 += `
+          <div class="q-item" id="item-q${i}">
+            <span class="q-num">${i}.</span>
+            <p style="font-weight: 500;">${item.prompt}</p>
+            <input type="text" placeholder="Gõ câu hoàn chỉnh rồi ấn ra ngoài..." onblur="checkTextAnswer(${i}, this.value)">
+            <div class="feedback-msg" id="fb-${i}"></div>
+          </div>`;
+      }
+      document.getElementById('container-write-1').innerHTML = w1;
+
+      // 66-70
+      let w2 = '';
+      for (let i = 66; i <= 70; i++) {
+        const item = questionsDB[i];
+        w2 += `
+          <div class="q-item" id="item-q${i}">
+            <span class="q-num">${i}.</span>
+            <p style="font-weight: 500;">${item.prompt}</p>
+            <input type="text" placeholder="Nhập câu tiếng Trung dịch nghĩa..." onblur="checkTextAnswer(${i}, this.value)">
+            <div class="feedback-msg" id="fb-${i}"></div>
+          </div>`;
+      }
+      document.getElementById('container-write-2').innerHTML = w2;
+
+      // Footer Palette 71 câu
+      const palette = document.getElementById('footerPalette');
+      for (let i = 1; i <= 71; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'nav-dot';
+        dot.id = `dot-${i}`;
+        dot.innerText = i;
+        dot.onclick = () => scrollToQuestion(i);
+        palette.appendChild(dot);
+      }
+    }
+
+    function scrollToQuestion(qNum) {
+      if (qNum <= 30) switchSection('sec-lis');
+      else if (qNum <= 60) switchSection('sec-read');
+      else switchSection('sec-write');
+
+      const el = document.getElementById(`item-q${qNum}`);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function switchSection(secId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.section-view').forEach(s => s.classList.remove('active'));
+      
+      const tabMap = { 'sec-lis': 0, 'sec-read': 1, 'sec-write': 2 };
+      document.querySelectorAll('.tab-btn')[tabMap[secId]].classList.add('active');
+      document.getElementById(secId).classList.add('active');
+    }
+
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'zh-CN';
+        u.rate = 0.85;
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    function checkAnswer(qNum, correctVal, userVal) {
+      if (!userVal) return;
+      userVal = userVal.trim().toUpperCase();
+      correctVal = correctVal.toUpperCase();
+
+      const fb = document.getElementById(`fb-${qNum}`);
+      const dot = document.getElementById(`dot-${qNum}`);
+
+      if (userVal === correctVal) {
+        fb.className = 'feedback-msg correct';
+        fb.innerHTML = '✅ Chính xác!';
+        dot.className = 'nav-dot done-correct';
+        userScores[qNum] = 1;
+      } else {
+        fb.className = 'feedback-msg incorrect';
+        fb.innerHTML = `❌ Sai rồi! Đáp án đúng: <strong>${correctVal}</strong>`;
+        dot.className = 'nav-dot done-wrong';
+        userScores[qNum] = 0;
+      }
+      updateScore();
+    }
+
+    function checkTextAnswer(qNum, userVal) {
+      if (!userVal.trim()) return;
+      const acceptedAnswers = questionsDB[qNum].accepted;
+      const cleanVal = userVal.trim().replace(/\s+/g, '');
+      const isMatch = acceptedAnswers.some(ans => ans.replace(/\s+/g, '') === cleanVal);
+
+      const fb = document.getElementById(`fb-${qNum}`);
+      const dot = document.getElementById(`dot-${qNum}`);
+
+      if (isMatch) {
+        fb.className = 'feedback-msg correct';
+        fb.innerHTML = '✅ Chính xác!';
+        dot.className = 'nav-dot done-correct';
+        userScores[qNum] = 1;
+      } else {
+        fb.className = 'feedback-msg incorrect';
+        fb.innerHTML = `❌ Chưa chính xác. Gợi ý: <strong>${acceptedAnswers[0]}</strong>`;
+        dot.className = 'nav-dot done-wrong';
+        userScores[qNum] = 0;
+      }
+      updateScore();
+    }
+
+    function checkEssay(val) {
+      const len = val.trim().length;
+      document.getElementById('wordCount').innerText = len;
+      const fb = document.getElementById('fb-71');
+      const dot = document.getElementById('dot-71');
+
+      if (len >= 60) {
+        fb.className = 'feedback-msg correct';
+        fb.innerHTML = '✅ Đã đạt yêu cầu độ dài đoạn văn!';
+        dot.className = 'nav-dot done-correct';
+        userScores[71] = 1;
+      } else {
+        fb.className = 'feedback-msg incorrect';
+        fb.innerHTML = `⚠️ Đoạn văn còn ngắn (cần ~80 chữ).`;
+        dot.className = 'nav-dot done-wrong';
+        userScores[71] = 0;
+      }
+      updateScore();
+    }
+
+    function updateScore() {
+      let total = 0;
+      for (let k in userScores) {
+        if (userScores[k] === 1) total++;
+      }
+      document.getElementById('scoreIndicator').innerText = `Điểm đúng: ${total} / 71`;
+    }
+
+    window.onload = initPage;
+  </script>
+</body>
+</html>
