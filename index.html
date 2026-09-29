@@ -64,13 +64,13 @@
 
     .bank-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; margin-bottom: 14px; font-size: 14px; line-height: 1.6; }
 
-    /* Gallery lưới hình ảnh trực quan */
+    /* Gallery lưới hình ảnh tĩnh - không hover đổi viền */
     .image-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
-    .gallery-card { background: #fff; border: 2px solid #e2e8f0; border-radius: 8px; padding: 10px; text-align: center; }
-    .gallery-card.featured { border-color: #1976d2; background: #f0f7ff; }
+    .gallery-card { background: #fff; border: 1px solid #dcdfe6; border-radius: 8px; padding: 10px; text-align: center; }
     .gallery-card h4 { font-size: 15px; margin-bottom: 8px; color: #1976d2; font-weight: 700; }
     .gallery-card svg { width: 100%; height: 140px; border-radius: 4px; background: #fafafa; }
-    .gallery-caption { font-size: 12px; color: #555; margin-top: 6px; }
+    .gallery-caption { font-size: 13px; color: #333; margin-top: 6px; line-height: 1.5; }
+    .gallery-pinyin { color: #64748b; font-size: 12px; }
   </style>
 </head>
 <body>
@@ -125,130 +125,132 @@
         <div class="group-header">HÌNH ẢNH ĐỀ BÀI (DÙNG CHO CÂU 31 - 40)</div>
         <div class="image-gallery">
           
-          <!-- HÌNH A: Mấy chiếc túi xách màu đen, trắng, vàng -->
+          <!-- HÌNH A -->
           <div class="gallery-card">
             <h4>HÌNH A</h4>
             <svg viewBox="0 0 200 140">
               <rect width="200" height="140" fill="#f5ede3"/>
-              <!-- Túi đen -->
               <rect x="25" y="35" width="70" height="45" rx="5" fill="#2b2b2b" stroke="#111" stroke-width="2"/>
               <rect x="25" y="35" width="70" height="20" rx="3" fill="#3d3d3d"/>
               <circle cx="60" cy="48" r="3" fill="#d4af37"/>
               <path d="M40 35 Q60 10 80 35" fill="none" stroke="#666" stroke-width="2"/>
-              <!-- Túi trắng/kem -->
               <rect x="105" y="45" width="75" height="50" rx="5" fill="#fdfbf7" stroke="#dcd6cd" stroke-width="2"/>
               <rect x="105" y="45" width="75" height="22" rx="3" fill="#f2ede4"/>
               <circle cx="142" cy="60" r="3" fill="#d4af37"/>
               <path d="M115 45 Q140 15 165 45" fill="none" stroke="#d4af37" stroke-width="1.5"/>
-              <!-- Túi vàng phía sau -->
               <rect x="75" y="15" width="60" height="35" rx="4" fill="#e6b422" opacity="0.85"/>
             </svg>
-            <div class="gallery-caption">Túi xách màu đen, màu trắng (黑色的 / 白色的包)</div>
+            <div class="gallery-caption">
+              <div><strong>黑色的 / 白色的包</strong></div>
+              <div class="gallery-pinyin">Hēisè de / báisè de bāo</div>
+              <div>Túi xách màu đen / màu trắng</div>
+            </div>
           </div>
 
-          <!-- HÌNH B: Hai người ngồi họp, có máy vi tính, bảng biểu -->
+          <!-- HÌNH B -->
           <div class="gallery-card">
             <h4>HÌNH B</h4>
             <svg viewBox="0 0 200 140">
               <rect width="200" height="140" fill="#f8fafc"/>
-              <!-- Bàn học/văn phòng -->
               <rect x="30" y="85" width="140" height="8" rx="2" fill="#334155"/>
               <rect x="95" y="93" width="10" height="35" fill="#475569"/>
-              <!-- Máy vi tính laptop -->
               <polygon points="90,85 110,85 114,70 86,70" fill="#64748b"/>
               <rect x="88" y="70" width="24" height="15" rx="1" fill="#94a3b8"/>
-              <!-- Người ngồi ghế bên trái -->
               <circle cx="55" cy="50" r="9" fill="#f59e0b"/>
               <path d="M45 85 L50 64 Q55 60 60 64 L65 85 Z" fill="#eab308"/>
               <rect x="42" y="75" width="16" height="35" rx="3" fill="#1e293b"/>
-              <!-- Người đứng bên phải chỉ bảng -->
               <circle cx="145" cy="45" r="9" fill="#f87171"/>
               <path d="M138 56 L152 56 L150 90 L140 90 Z" fill="#ec4899"/>
               <line x1="140" y1="90" x2="140" y2="125" stroke="#0f172a" stroke-width="5"/>
               <line x1="148" y1="90" x2="148" y2="125" stroke="#0f172a" stroke-width="5"/>
             </svg>
-            <div class="gallery-caption">Trong giờ học/văn phòng làm việc (上课 / 办公室)</div>
+            <div class="gallery-caption">
+              <div><strong>上课 / 在办公室谈工作</strong></div>
+              <div class="gallery-pinyin">Shàngkè / zài bàngōngshì tán gōngzuò</div>
+              <div>Trong giờ học / Bàn công việc</div>
+            </div>
           </div>
 
-          <!-- HÌNH C: Người ngồi uống trà nói chuyện -->
+          <!-- HÌNH C -->
           <div class="gallery-card">
             <h4>HÌNH C</h4>
             <svg viewBox="0 0 200 140">
               <rect width="200" height="140" fill="#fefae0"/>
-              <!-- Bàn tròn cà phê -->
               <ellipse cx="100" cy="95" rx="55" ry="14" fill="#d4a373"/>
               <rect x="96" y="95" width="8" height="35" fill="#bc6c25"/>
-              <!-- Tách trà bốc khói -->
               <rect x="92" y="80" width="16" height="12" rx="3" fill="#e9edc9"/>
               <path d="M96 77 Q100 70 96 64" fill="none" stroke="#a3b18a" stroke-width="2"/>
               <path d="M102 77 Q106 70 102 64" fill="none" stroke="#a3b18a" stroke-width="2"/>
-              <!-- Hai người ngồi nói chuyện -->
               <circle cx="45" cy="65" r="10" fill="#ddbea9"/>
               <path d="M35 100 Q45 80 55 100 Z" fill="#6b705c"/>
               <circle cx="155" cy="65" r="10" fill="#ddbea9"/>
               <path d="M145 100 Q155 80 165 100 Z" fill="#b7b7a4"/>
             </svg>
-            <div class="gallery-caption">Uống trà nói chuyện trong phòng (喝茶 / 说话)</div>
+            <div class="gallery-caption">
+              <div><strong>喝茶 / 正在说话</strong></div>
+              <div class="gallery-pinyin">Hē chá / zhèngzài shuōhuà</div>
+              <div>Uống trà / Đang nói chuyện</div>
+            </div>
           </div>
 
-          <!-- HÌNH D: Quầy hàng / siêu thị tính tiền -->
+          <!-- HÌNH D -->
           <div class="gallery-card">
             <h4>HÌNH D</h4>
             <svg viewBox="0 0 200 140">
               <rect width="200" height="140" fill="#e0f2fe"/>
-              <!-- Quầy tính tiền siêu thị -->
               <rect x="25" y="70" width="150" height="45" rx="3" fill="#0284c7"/>
               <rect x="35" y="55" width="28" height="15" rx="2" fill="#38bdf8"/>
-              <!-- Máy tính tiền Pos -->
               <rect x="120" y="50" width="22" height="20" rx="2" fill="#0f172a"/>
               <rect x="123" y="53" width="16" height="10" fill="#4ade80"/>
-              <!-- Túi mua sắm & hộp quà -->
               <rect x="75" y="52" width="18" height="18" fill="#f43f5e"/>
               <rect x="96" y="56" width="14" height="14" fill="#fbbf24"/>
             </svg>
-            <div class="gallery-caption">Ở cửa hàng mua đồ tính tiền (在商店买东西，一百多块)</div>
+            <div class="gallery-caption">
+              <div><strong>在商店买东西</strong></div>
+              <div class="gallery-pinyin">Zài shāngdiàn mǎi dōngxi</div>
+              <div>Mua đồ ở cửa hàng</div>
+            </div>
           </div>
 
-          <!-- HÌNH E: Người phụ nữ mặc váy xanh lam dài (chính là hình E trên app) -->
+          <!-- HÌNH E -->
           <div class="gallery-card">
             <h4>HÌNH E</h4>
             <svg viewBox="0 0 200 140">
               <rect width="200" height="140" fill="#eff6ff"/>
-              <!-- Tóc vàng -->
               <circle cx="100" cy="22" r="10" fill="#fde047"/>
-              <!-- Mặt và cổ -->
               <circle cx="100" cy="24" r="7" fill="#fed7aa"/>
               <rect x="98" y="29" width="4" height="6" fill="#fed7aa"/>
-              <!-- Đầm dài màu xanh lam (dạ hội / biểu diễn ca hát) -->
               <path d="M93 35 L107 35 L116 80 L124 125 L76 125 L84 80 Z" fill="#2563eb"/>
-              <!-- Cánh tay giơ cao biểu diễn hát -->
               <path d="M93 36 L80 20 L76 25" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
               <path d="M107 36 L120 20 L124 25" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
             </svg>
-            <div class="gallery-caption">Váy xanh lam / Biểu diễn ca hát (穿蓝色裙子 / 唱歌)</div>
+            <div class="gallery-caption">
+              <div><strong>穿蓝色的裙子 / 唱歌</strong></div>
+              <div class="gallery-pinyin">Chuān lánsè de qúnzi / chànggē</div>
+              <div>Mặc váy xanh lam / Hát</div>
+            </div>
           </div>
 
-          <!-- HÌNH F: Nam cầu thủ đang ném bóng rổ (chính là hình F ví dụ trên app) -->
-          <div class="gallery-card featured">
-            <h4>HÌNH F (Ví dụ mẫu: 打篮球)</h4>
+          <!-- HÌNH F -->
+          <div class="gallery-card">
+            <h4>HÌNH F (Ví dụ mẫu)</h4>
             <svg viewBox="0 0 200 140">
               <rect width="200" height="140" fill="#f8fafc"/>
               <ellipse cx="100" cy="80" rx="45" ry="50" fill="#e2e8f0" opacity="0.6"/>
-              <!-- Đầu cầu thủ -->
               <circle cx="95" cy="30" r="9" fill="#d97706"/>
-              <!-- Cơ thể mặc áo tím sát nách -->
               <path d="M85 40 L105 40 L110 75 L82 78 Z" fill="#4338ca"/>
-              <!-- Cánh tay ôm quả bóng rổ màu cam -->
               <line x1="88" y1="48" x2="115" y2="60" stroke="#d97706" stroke-width="4" stroke-linecap="round"/>
               <line x1="102" y1="48" x2="120" y2="62" stroke="#d97706" stroke-width="4" stroke-linecap="round"/>
-              <!-- Quả bóng rổ cam -->
               <circle cx="126" cy="65" r="13" fill="#ea580c"/>
               <circle cx="126" cy="65" r="13" fill="none" stroke="#9a3412" stroke-width="1"/>
-              <!-- Quần đùi & Chân giày thể thao -->
               <path d="M82 78 L110 75 L108 95 L84 96 Z" fill="#312e81"/>
               <line x1="90" y1="96" x2="98" y2="125" stroke="#1e293b" stroke-width="5" stroke-linecap="round"/>
             </svg>
-            <div class="gallery-caption"><strong>Ví dụ mẫu:</strong> 每个星期六，我都去打篮球。-- F</div>
+            <div class="gallery-caption">
+              <div><strong>打篮球 (Mẫu: 每个星期六去打篮球)</strong></div>
+              <div class="gallery-pinyin">Dǎ lánqiú (Měi gè xīngqīliù qù dǎ lánqiú)</div>
+              <div>Chơi bóng rổ (Thứ 7 hàng tuần đi chơi bóng rổ)</div>
+            </div>
           </div>
 
         </div>
